@@ -37,6 +37,7 @@ app.on('ready', function () {
         icon: path.join(__dirname, 'favicon.ico')
     });
 
+    mainWindow.openDevTools();
     mainWindow.loadURL("file://" + __dirname + "/index.html");
     mainWindow.setMenu(null);
     mainWindow.setMenuBarVisibility(true);
