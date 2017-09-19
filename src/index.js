@@ -4,13 +4,14 @@ const dialog = electron.dialog;
 const Menu = electron.Menu;
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
+const systemPreferences = electron.systemPreferences;
 var path = require('path');
 
 
 var mainWindow = null;
 var _exec;
 
-var shouldQuit = app.makeSingleInstance(function (commandLine, workingDirectory) {
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
     if (mainWindow) {
         if (mainWindow.isMinimized()) mainWindow.restore();
         mainWindow.focus();
@@ -22,7 +23,10 @@ if (shouldQuit) {
     return;
 }
 
-app.on('ready', function () {
+systemPreferences.setUserDefault('NSDisabledDictationMenuItem', 'boolean', true);
+systemPreferences.setUserDefault('NSDisabledCharacterPaletteMenuItem', 'boolean', true);
+
+app.on('ready', function() {
 
     mainWindow = new BrowserWindow({
         title: app.getName(),
@@ -47,14 +51,35 @@ app.on('ready', function () {
         mainWindow.maximize();
     });
 
-    mainWindow.on('closed', function () {
+    mainWindow.on('closed', function() {
         mainWindow = null;
         app.exit(0);
     });
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate([{
+        label: app.getName(),
+        submenu: [
+            {
+                role: 'undo'
+            }, {
+                role: 'redo'
+            }, {
+                role: 'cut'
+            }, {
+                role: 'copy'
+            }, {
+                role: 'paste'
+            }, {
+                role: 'delete'
+            }, {
+                role: 'selectall'
+            }
+        ]
+    }]));
 });
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
     if (process.platform != 'darwin') {
         app.quit();
     }
