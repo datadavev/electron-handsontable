@@ -1,0 +1,23 @@
+{
+  "name": "electron-handsontable",
+  "version": "1.0.0",
+  "description": "Electron with \u0016Handsontable",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumanparia/electron-handsontable.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sumanparia/electron-handsontable/issues"
+  },
+  "homepage": "https://github.com/sumanparia/electron-handsontable#readme",
+  "devDependencies": {
+    "electron": "^1.7.6",
+    "electron-packager": "^9.1.0"
+  }
+}
